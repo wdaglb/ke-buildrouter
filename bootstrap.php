@@ -6,7 +6,7 @@
 // +----------------------------------------------------------------------
 
 if (\think\facade\App::isDebug()) {
-    \think\facade\Hook::listen('app_init', function () {
+    \think\facade\Hook::exec(function () {
         $builder = new \ke\BuildRouter(\think\facade\App::getRootPath(), 'application', \think\facade\App::getRootPath() . 'route/build_route.php');
         $builder->make();
     });

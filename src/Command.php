@@ -23,7 +23,7 @@ class Command extends \think\console\Command
 
     protected function execute(Input $input, Output $output)
     {
-        $builder = new BuildRoute(App::getRootPath(), 'application', App::getRootPath() . 'route/build_route.php');
+        $builder = new BuildRouter(App::getRootPath(), 'application', App::getRootPath() . 'route/build_route.php');
         $builder->make();
 
         $output->writeln('route build success');

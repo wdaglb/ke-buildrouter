@@ -8,7 +8,7 @@
 
 namespace ke;
 
-class BuildRoute
+class BuildRouter
 {
     private $routes = [];
 
@@ -89,6 +89,3 @@ class BuildRoute
     }
 }
 
-$root_path = __DIR__ . '/../../../';
-$builder = new BuildRoute($root_path, 'application', $root_path . 'route/build_route.php');
-$builder->make();

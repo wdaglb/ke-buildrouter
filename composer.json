@@ -1,5 +1,6 @@
 {
     "name": "ke/buildrouter",
+    "bin": ["bin/ke-router"],
     "authors": [
         {
             "name": "King east",

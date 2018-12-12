@@ -12,5 +12,7 @@ composer require ke/buildrouter
 
 <br/>
 
-部署时你应该php think ke-build生成路由表
+部署时你应该使用
+`php think ke-build`
+生成路由表
 

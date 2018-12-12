@@ -1,6 +1,5 @@
 {
     "name": "ke/buildrouter",
-    "bin": ["bin/ke-router"],
     "authors": [
         {
             "name": "King east",
@@ -8,7 +7,8 @@
         }
     ],
     "autoload": {
-        "psr-4": {"ke\\": "ke/"}
+        "psr-4": {"ke\\": "src/"},
+        "files": ["bootstrap.php"]
     },
 
     "require": {

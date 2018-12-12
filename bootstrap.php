@@ -8,7 +8,7 @@
 // 判断TP是否启动
 if (class_exists('\\think\\facade\\App')) {
     if (\think\facade\App::isDebug()) {
-        \think\facade\Hook::exec(function () {
+        \think\facade\Hook::listen('app_init', function () {
             $builder = new \ke\BuildRouter(\think\facade\App::getRootPath(), 'application', \think\facade\App::getRootPath() . 'route/build_route.php');
             $builder->make();
         });

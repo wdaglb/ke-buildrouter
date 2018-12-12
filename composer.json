@@ -1,0 +1,16 @@
+{
+    "name": "ke/buildrouter",
+    "authors": [
+        {
+            "name": "King east",
+            "email": "1207877378@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"ke\\": "ke/"}
+    },
+
+    "require": {
+        "topthink/framework": "^5.1"
+    }
+}

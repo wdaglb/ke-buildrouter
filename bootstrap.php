@@ -11,6 +11,7 @@ if (\think\facade\App::isDebug()) {
         $builder->make();
     });
 }
+
 \think\Console::addDefaultCommands([
     '\\ke\\Command'
 ]);

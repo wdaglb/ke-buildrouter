@@ -18,6 +18,7 @@ composer require ke/buildrouter
 
 
 **注解格式**
+
 与TP官方的差不多，目前只支持
 `
 @route('rule', 'method')

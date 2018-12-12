@@ -17,7 +17,7 @@ class Command extends \think\console\Command
 {
     protected function configure()
     {
-        $this->setName('ke-build');
+        $this->setName('ke-buildrouter');
     }
 
 

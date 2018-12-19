@@ -6,20 +6,23 @@
 // +----------------------------------------------------------------------
 
 if (defined('THINK_VERSION')) {
-    define('THINK_VERSION', '5.0');
+    define('KE_TP_VERSION', '5.0');
 } else {
-    define('THINK_VERSION', '5.1');
+    define('KE_TP_VERSION', '5.1');
 }
+use ke\Polyfill;
 
-var_dump(THINK_VERSION);exit;
-
-if (\think\facade\App::isDebug()) {
-    \think\facade\Hook::exec(function () {
-        $builder = new \ke\BuildRouter(\think\facade\App::getRootPath(), 'application', \think\facade\App::getRootPath() . 'route/build_route.php');
+if (Polyfill::isDebug()) {
+    Polyfill::hooks_exec(function () {
+        $builder = new \ke\BuildRouter(Polyfill::getRootPath(), 'application', Polyfill::getRouteFile());
         $builder->make();
+
+        if (KE_TP_VERSION === '5.0') {
+            require (APP_PATH . 'build_route' . EXT);
+        }
     });
 }
 
-\think\Console::addDefaultCommands([
+Polyfill::console_add([
     '\\ke\\Command'
 ]);

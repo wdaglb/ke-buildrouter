@@ -61,10 +61,30 @@ class BuildRouter
     }
 
 
+    /**
+     * 解析出控制器名
+     * @param string $str
+     * @return string
+     */
+    private function parseController($str)
+    {
+        // strtolower(str_replace('Controller.php', '', $tmps[0]))
+        $str = preg_replace_callback('/[Controller]*\.php$/', function ($match) {
+            return '';
+        }, $str);
+        return strtolower($str);
+    }
+
+
     public function make()
     {
         $content = "<?php \r\n";
         $content .= "/* build_route提示：本文件为自动生成，请不要编辑 */\r\n\r\n";
+        if (KE_TP_VERSION === '5.0') {
+            $content .= "use \\think\\Route;\r\n";
+        } else {
+            $content .= "use \\think\\facade\\Route;\r\n";
+        }
 
         foreach ($this->routes as $route) {
             $route['file'] = str_replace(DIRECTORY_SEPARATOR, '/', $route['file']);
@@ -74,15 +94,15 @@ class BuildRouter
             $module = $tmps[0];
             $tmps = array_slice($tmps, 2);
             if (count($tmps) === 1) {
-                $module .= '/' . strtolower(str_replace('Controller.php', '', $tmps[0])) . '/' . $route['action'];
+                $module .= '/' . $this->parseController($tmps[0]) . '/' . $route['action'];
             } else {
                 $end = array_pop($tmps);
-                $module .= '/' . implode('.', $tmps) . '.' . strtolower(str_replace('Controller.php', '', $end)) . '/' . $route['action'];
+                $module .= '/' . implode('.', $tmps) . '.' . $this->parseController($end) . '/' . $route['action'];
             }
             // $controller =
 
 
-            $content .= "Route::{$route['pattern'][1]}('{$route['pattern'][0]}', '{$module}');\r\n\r\n";
+            $content .= "Route::{$route['pattern'][1]}('{$route['pattern'][0]}', '{$module}');\r\n";
         }
 
         file_put_contents($this->file, $content);

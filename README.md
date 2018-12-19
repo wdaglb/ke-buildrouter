@@ -35,4 +35,5 @@ composer require ke/buildrouter
 必须输入method，否则不识别
 
 
+
 后续可能支持option参数的设置?

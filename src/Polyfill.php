@@ -11,6 +11,8 @@ namespace ke;
 
 
 
+use think\Console;
+
 class Polyfill
 {
 
@@ -56,11 +58,7 @@ class Polyfill
 
     public static function console_add($option)
     {
-        if (KE_TP_VERSION === '5.0') {
-            return \think\Console::addDefaultCommands($option);
-        } else {
-            return \think\facade\Console::addDefaultCommands($option);
-        }
+        \think\Console::addDefaultCommands($option);
     }
 
 }

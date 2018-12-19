@@ -2,7 +2,7 @@
 
 **要求**
 
-ThinkPHP >= 5.1
+ThinkPHP >= 5.0
 
 **安装**
 

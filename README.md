@@ -36,6 +36,7 @@ composer require ke/buildrouter
 **简单的例子**
 
 `
+
 /**
  * @route('test', 'get')
  */
@@ -43,6 +44,7 @@ composer require ke/buildrouter
  {
    return 'hello';
  }
+ 
 `
 
 后续可能支持option参数的设置?

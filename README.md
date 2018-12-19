@@ -31,6 +31,7 @@ composer require ke/buildrouter
 `
 @route('rule', 'method')
 `
+<br/>
 必须输入method，否则不识别
 
 

@@ -12,6 +12,8 @@ composer require ke/buildrouter
 
 **使用**
 
+只需要使用composer安装扩展就自动加载,无需任何其它代码来启动<br/>
+
 当TP设置为调试模式时(也就是app_debug为true)时每次请求都会生成route/build_route.php<br/>
 注意：如果是5.0则会生成application/build_route.php
 

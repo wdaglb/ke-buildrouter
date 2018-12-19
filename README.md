@@ -37,13 +37,13 @@ composer require ke/buildrouter
 
 `
 
-/**
- * @route('test', 'get')
- */
- public function index()
- {
-   return 'hello';
- }
+ /**
+  * @route('test', 'get')
+  */
+  public function index()
+  {
+     return 'hello';
+  }
  
 `
 

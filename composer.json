@@ -12,6 +12,6 @@
     },
 
     "require": {
-        "topthink/framework": ">=5.0"
+        "topthink/framework": "*"
     }
 }

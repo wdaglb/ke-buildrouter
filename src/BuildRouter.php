@@ -69,7 +69,7 @@ class BuildRouter
     private function parseController($str)
     {
         // strtolower(str_replace('Controller.php', '', $tmps[0]))
-        $str = preg_replace_callback('/[Controller]*\.php$/', function ($match) {
+        $str = preg_replace_callback('/(Controller)*\.php$/', function ($match) {
             return '';
         }, $str);
         return strtolower($str);

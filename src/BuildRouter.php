@@ -101,8 +101,12 @@ class BuildRouter
             }
             // $controller =
 
-
-            $content .= "Route::{$route['pattern'][1]}('{$route['pattern'][0]}', '{$module}');\r\n";
+            if (isset($route['pattern'][1])) {
+                $method = strtolower($route['pattern'][1]);
+            } else {
+                $method = 'rule';
+            }
+            $content .= "Route::{$method}('{$route['pattern'][0]}', '{$module}');\r\n";
         }
 
         file_put_contents($this->file, $content);

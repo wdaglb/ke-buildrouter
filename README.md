@@ -47,7 +47,7 @@ class Index
      * @return mixed
      * @route('hello/:name')
      */
-	public function hello($name)
+    public function hello($name)
     {
     	return 'hello,'.$name;
     }
@@ -57,7 +57,7 @@ class Index
 
 > 该方式定义的路由在调试模式下面实时生效，部署模式则需要使用 php think ke-buildrouter 指令生成路由规则文件。
 
-注意必须严格使用@route(（区分大小写，route和(之间不能有空格），建议路由定义写在注释最后一段，否则后面需要一个空行。
+注意必须严格使用@route(（区分大小写，route和(之间不能有空格），**建议路由定义写在注释最后一段，否则后面需要一个空行。**
 
 默认注册的路由规则是支持所有的请求，如果需要指定请求类型，可以在第二个参数中指定请求类型：
 ```
@@ -71,11 +71,21 @@ class Index
      * @return mixed
      * @route('hello/:name','get')
      */
-	public function hello($name)
+    public function hello($name)
     {
     	return 'hello,'.$name;
     }
 }
+```
+
+然后就使用下面的URL地址访问：
+```
+http://tp5.com/hello/thinkphp
+```
+
+页面输出
+```
+hello,thinkphp
 ```
 
 这里借用了[官方文档](https://www.kancloud.cn/manual/thinkphp5_1/469333)

@@ -11,7 +11,6 @@ namespace ke;
 
 use think\console\Input;
 use think\console\Output;
-use think\facade\App;
 
 class Command extends \think\console\Command
 {

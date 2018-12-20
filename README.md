@@ -1,8 +1,6 @@
 ## KE-BuileRouter TP注解路由
 
-**要求**
-
-ThinkPHP >= 5.0
+> 兼容ThinkPHP 5.0与5.1版本,不兼容3.x
 
 **安装**
 

@@ -114,8 +114,6 @@ class BuildRouter
                 $module = $this->parseController($tmps[0]) . '/' . $route['action'];
             }
 
-            // $controller =
-
             if (isset($route['pattern'][1])) {
                 $method = strtolower($route['pattern'][1]);
             } else {

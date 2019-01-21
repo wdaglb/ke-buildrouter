@@ -8,18 +8,27 @@
 
 namespace ke;
 
+use think\App;
+use think\Container;
+
 class BuildRouter
 {
     private $routes = [];
 
     private $file;
 
+    /**
+     * @var App
+     */
     private $app;
+
+    private $appNamespace;
 
 
     public function __construct($path, $app, $saveFile = 'build_route.php')
     {
-        $this->app = $app;
+        $this->appNamespace = $app;
+        $this->app = Container::get('app');
 
         $files = $this->get_list($path . $app);
 
@@ -89,20 +98,30 @@ class BuildRouter
         foreach ($this->routes as $route) {
             $route['file'] = str_replace(DIRECTORY_SEPARATOR, '/', $route['file']);
             $tmps = explode('/', $route['file']);
-            $tmps = array_slice($tmps, array_search($this->app, $tmps) + 1);
+            $tmps = array_slice($tmps, array_search($this->appNamespace, $tmps) + 1);
 
-            $module = $tmps[0];
-            $tmps = array_slice($tmps, 2);
-            if (count($tmps) === 1) {
-                $module .= '/' . $this->parseController($tmps[0]) . '/' . $route['action'];
+            if ($this->app->config('app_multi_module')) {
+                $module = $tmps[0];
+                $tmps = array_slice($tmps, 2);
+                if (count($tmps) === 1) {
+                    $module .= '/' . $this->parseController($tmps[0]) . '/' . $route['action'];
+                } else {
+                    $end = array_pop($tmps);
+                    $module .= '/' . implode('.', $tmps) . '.' . $this->parseController($end) . '/' . $route['action'];
+                }
             } else {
-                $end = array_pop($tmps);
-                $module .= '/' . implode('.', $tmps) . '.' . $this->parseController($end) . '/' . $route['action'];
+                $tmps = array_slice($tmps, 1);
+                $module = $this->parseController($tmps[0]) . '/' . $route['action'];
             }
+
             // $controller =
 
-
-            $content .= "Route::{$route['pattern'][1]}('{$route['pattern'][0]}', '{$module}');\r\n";
+            if (isset($route['pattern'][1])) {
+                $method = strtolower($route['pattern'][1]);
+            } else {
+                $method = 'rule';
+            }
+            $content .= "Route::{$method}('{$route['pattern'][0]}', '{$module}');\r\n";
         }
 
         file_put_contents($this->file, $content);

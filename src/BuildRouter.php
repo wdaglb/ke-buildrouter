@@ -59,11 +59,13 @@ class BuildRouter
     {
         static $ret;
         $files = glob($dir . '*');
-        foreach ($files as $file) {
-            if (is_file($file) && preg_match('/\.php$/', $file)) {
-                $ret[] = $file;
-            } else {
-                $this->get_list($file . '/');
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                if (is_file($file) && substr($file, -4) === '.php') {
+                    $ret[] = $file;
+                } else {
+                    $this->get_list($file . '/');
+                }
             }
         }
         return $ret;
@@ -77,14 +79,29 @@ class BuildRouter
      */
     private function parseController($str)
     {
-        // strtolower(str_replace('Controller.php', '', $tmps[0]))
         $str = preg_replace_callback('/(Controller)*\.php$/', function ($match) {
             return '';
         }, $str);
-        return strtolower($str);
+        return $this->toUnder($str);
     }
 
 
+    /**
+     * 驼峰转下划风格
+     * @param string $str
+     * @return string
+     */
+    private function toUnder($str)
+    {
+        return strtolower(preg_replace_callback('/([a-z])([A-Z])/', function ($match) {
+            return $match[1] . '_' . $match[2];
+        }, $str));
+    }
+
+
+    /**
+     * 开始解析
+     */
     public function make()
     {
         $content = "<?php \r\n";

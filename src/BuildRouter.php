@@ -82,7 +82,7 @@ class BuildRouter
         $str = preg_replace_callback('/(Controller)*\.php$/', function ($match) {
             return '';
         }, $str);
-        return $this->toUnder($str);
+        return $str;
     }
 
 

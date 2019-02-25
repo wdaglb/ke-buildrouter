@@ -91,9 +91,14 @@ hello,thinkphp
 
 > 建议使用url函数生成
 ```
+// application/index/controller/Index.php
 url('index/index/index')
-// 如果是多层路由则为
+
+// application/index/controller/user/Message.php
 url('index/user.message/index')
+
+// application/index/controller/UserMessage.php
+url('index/user_message/index')
 ```
 > 注意：需要全部小写,否则生成的路由不会匹配准确
 

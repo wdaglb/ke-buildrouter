@@ -24,11 +24,12 @@ php think ke-buildrouter
 ```
 
 
-
 **注解格式**
 
 与TP官方的差不多，目前只支持
 ```
+@route('rule')
+// 如需指定请求类型，传入第二个参数即可，支持路由模式下所有的类型
 @route('rule', 'method')
 ```
 在控制器类的方法注释中定义（通常称之为**注解路由**），例如：
@@ -85,6 +86,16 @@ http://tp5.com/hello/thinkphp
 ```
 hello,thinkphp
 ```
+
+**关于URL生成**
+
+> 建议使用url函数生成
+```
+url('index/index/index')
+// 如果是多层路由则为
+url('index/user.message/index')
+```
+> 注意：需要全部小写,否则生成的路由不会匹配准确
 
 这里借用了[官方文档](https://www.kancloud.cn/manual/thinkphp5_1/469333)
 

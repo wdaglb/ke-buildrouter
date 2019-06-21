@@ -121,7 +121,7 @@ class BuildRouter
 
         $prefix = $this->app->config('ke_route_prefix');
         $vars = $this->app->config('ke_route_vars');
-        $is_vars = count($vars);
+        $is_vars = is_array($vars) && count($vars);
         $multi_module = $this->app->config('app_multi_module');
 
         foreach ($this->routes as $route) {

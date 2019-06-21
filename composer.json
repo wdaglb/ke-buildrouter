@@ -1,5 +1,8 @@
 {
     "name": "ke/buildrouter",
+    "type": "library",
+    "description": "ThinkPHP5.0/5.1的注解路由",
+    "keywords": ["think", "thinkphp", "route", "router", "annotation", "annotation route", "annotation router"],
     "authors": [
         {
             "name": "King east",

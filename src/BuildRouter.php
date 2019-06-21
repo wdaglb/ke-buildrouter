@@ -34,8 +34,10 @@ class BuildRouter
 
         $this->routes = [];
         foreach ($files as $file) {
-            $content = file_get_contents($file);
+            $fs = fopen($file, 'rb');
+            $content = fread($fs, filesize($file));
             if (preg_match_all('/@route\((.+?)\).+?function\s*(\w+)/s', $content, $matchs)) {
+                $file = str_replace(DIRECTORY_SEPARATOR, '/', $file);
                 foreach ($matchs[1] as $index=>$match) {
                     $this->routes[] = [
                         'pattern'=>array_map('trim', explode(',', str_replace('\'', '', $match))),
@@ -44,7 +46,11 @@ class BuildRouter
                     ];
                 }
             }
+            fclose($fs);
+            unset($fs);
+            unset($content);
         }
+        unset($files);
 
         $this->file = $saveFile;
     }
@@ -112,12 +118,13 @@ class BuildRouter
             $content .= "use \\think\\facade\\Route;\r\n";
         }
 
+        $multi_module = $this->app->config('app_multi_module');
+
         foreach ($this->routes as $route) {
-            $route['file'] = str_replace(DIRECTORY_SEPARATOR, '/', $route['file']);
             $tmps = explode('/', $route['file']);
             $tmps = array_slice($tmps, array_search($this->appNamespace, $tmps) + 1);
 
-            if ($this->app->config('app_multi_module')) {
+            if ($multi_module) {
                 $module = $tmps[0];
                 $tmps = array_slice($tmps, 2);
                 if (count($tmps) === 1) {

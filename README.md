@@ -12,7 +12,7 @@ composer require ke/buildrouter
 
 只需要使用composer安装扩展就自动加载,无需任何其它代码来启动<br/>
 
-1.0.10 版本增加了常量KE_ROUTE_AUTO=0来关闭自动启动(需要在composer/autoload.php前定义)
+1.1 版本增加了常量KE_ROUTE_AUTO=0来关闭自动启动(需要在composer/autoload.php前定义)
 
 当TP设置为调试模式时(也就是app_debug为true)时每次请求都会生成route/build_route.php<br/>
 注意：如果是5.0则会生成application/build_route.php
@@ -26,7 +26,7 @@ composer require ke/buildrouter
 php think ke-buildrouter
 ```
 
-**配置(1.0.10+)**
+**配置(1.1+)**
 
 > 配置需要加在app.php
 

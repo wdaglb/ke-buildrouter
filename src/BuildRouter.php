@@ -36,13 +36,14 @@ class BuildRouter
         foreach ($files as $file) {
             $fs = fopen($file, 'rb');
             $content = fread($fs, filesize($file));
-            if (preg_match_all('/@route\((.+?)\).+?function\s*(\w+)/s', $content, $matchs)) {
+            if (preg_match_all('/\/\*.+?@route\((.+?)\).+?function\s*(\w+)\s*\(/s', $content, $matchs)) {
                 $file = str_replace(DIRECTORY_SEPARATOR, '/', $file);
                 foreach ($matchs[1] as $index=>$match) {
                     $this->routes[] = [
                         'pattern'=>array_map('trim', explode(',', str_replace('\'', '', $match))),
                         'file'=>$file,
-                        'action'=>$matchs[2][$index]
+                        'action'=>$matchs[2][$index],
+                        'annotation'=>$matchs[0]
                     ];
                 }
             }
@@ -118,6 +119,9 @@ class BuildRouter
             $content .= "use \\think\\facade\\Route;\r\n";
         }
 
+        $prefix = $this->app->config('ke_route_prefix');
+        $vars = $this->app->config('ke_route_vars');
+        $is_vars = count($vars);
         $multi_module = $this->app->config('app_multi_module');
 
         foreach ($this->routes as $route) {
@@ -143,7 +147,21 @@ class BuildRouter
             } else {
                 $method = 'rule';
             }
-            $content .= "Route::{$method}('{$route['pattern'][0]}', '{$module}');\r\n";
+            $rule = $route['pattern'][0];
+            // 变量替换
+            if ($is_vars) {
+                $rule = preg_replace_callback('/\$(\w+)/', function ($match) use($vars) {
+                    return isset($vars[$match[1]]) ? $vars[$match[1]] : 'null';
+                }, $rule);
+            }
+
+            $pre = $prefix;
+            if (substr($rule, 0, 1) === '/') {
+                $pre .= substr($rule, 1);
+            } else {
+                $pre .= $rule;
+            }
+            $content .= "Route::{$method}('{$pre}', '{$module}');\r\n";
         }
 
         file_put_contents($this->file, $content);

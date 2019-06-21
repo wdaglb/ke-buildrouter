@@ -12,6 +12,8 @@ composer require ke/buildrouter
 
 只需要使用composer安装扩展就自动加载,无需任何其它代码来启动<br/>
 
+1.0.10 版本增加了常量KE_ROUTE_AUTO=0来关闭自动启动(需要在composer/autoload.php前定义)
+
 当TP设置为调试模式时(也就是app_debug为true)时每次请求都会生成route/build_route.php<br/>
 注意：如果是5.0则会生成application/build_route.php
 
@@ -19,8 +21,22 @@ composer require ke/buildrouter
 <br/>
 
 部署时你应该使用下面命令生成路由表
+
 ```
 php think ke-buildrouter
+```
+
+**配置(1.0.10+)**
+
+> 配置需要加在app.php
+
+```
+    // 注解路由全局前缀
+    'ke_route_prefix'=>'',
+    // 注解路由变量, 定义时变量使用$pre
+    'ke_route_vars'=>[
+        'pre'=>'api'
+    ],
 ```
 
 
@@ -102,6 +118,5 @@ url('index/UserMessage/index')
 ```
 
 这里借用了[官方文档](https://www.kancloud.cn/manual/thinkphp5_1/469333)
-
 
 后续可能支持option参数的设置?

@@ -10,9 +10,10 @@ if (defined('THINK_VERSION')) {
 } else {
     define('KE_TP_VERSION', '5.1');
 }
+defined('KE_ROUTE_AUTO') || define('KE_ROUTE_AUTO', 1);
 use ke\Polyfill;
 
-if (Polyfill::isDebug()) {
+if (KE_ROUTE_AUTO && Polyfill::isDebug()) {
     Polyfill::hooks_exec(function () {
         $builder = new \ke\BuildRouter(Polyfill::getRootPath(), 'application', Polyfill::getRouteFile());
         $builder->make();

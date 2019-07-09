@@ -47,6 +47,8 @@ php think ke-buildrouter
 @route('rule')
 // 如需指定请求类型，传入第二个参数即可，支持路由模式下所有的类型
 @route('rule', 'method')
+// 使用注解变量
+@route('$pre/demo')
 ```
 在控制器类的方法注释中定义（通常称之为**注解路由**），例如：
 

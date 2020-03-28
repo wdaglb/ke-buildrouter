@@ -1,3 +1,6 @@
+建议使用go编写的新版本
+https://github.com/wdaglb/thinkphp-annotation-route
+
 ## KE-BuileRouter TP注解路由
 
 > 兼容ThinkPHP 5.0与5.1,不兼容3.x
